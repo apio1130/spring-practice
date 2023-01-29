@@ -12,16 +12,16 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class OptimisticLockStockFacadeTest {
+class NamedLockStockFacadeTest {
 
     @Autowired
     private StockRepository stockRepository;
 
     @Autowired
-    private OptimisticLockStockFacade stockService;
+    private NamedLockStockFacade stockService;
 
     @BeforeEach
     void before() {
@@ -45,8 +45,6 @@ class OptimisticLockStockFacadeTest {
             executorService.submit(() -> {
                 try {
                     stockService.decrease(1L, 1L);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
                 } finally {
                     latch.countDown();
                 }
@@ -61,4 +59,5 @@ class OptimisticLockStockFacadeTest {
 
         assertEquals(0L, stock.getQuantity());
     }
+
 }
