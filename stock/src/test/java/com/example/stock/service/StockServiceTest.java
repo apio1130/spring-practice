@@ -21,7 +21,7 @@ class StockServiceTest {
     private StockRepository stockRepository;
 
     @Autowired
-    private StockService stockService;
+    private PessimisticLockStockService stockService;
 
     @BeforeEach
     void before() {
@@ -68,6 +68,6 @@ class StockServiceTest {
 
         Stock stock = stockRepository.findById(1L).orElseThrow();
 
-        assertEquals(0, stock.getQuantity());
+        assertEquals(0L, stock.getQuantity());
     }
 }
