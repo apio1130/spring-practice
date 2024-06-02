@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: spring-kafka
+  cloud:
+    function:
+      definition: sampleProducer;sampleConsumer;
+    stream:
+      function:
+        bindings:
+          sampleProducer-out-0: producer-sample
+          sampleConsumer-in-0: consumer-sample
+      kafka:
+        binder:
+          brokers: localhost:10011,localhost:10012,localhost:10013
+          auto-create-topics: false
+          required-acks: 0
+          configuration:
+            key.serializer: org.apache.kafka.common.serialization.StringSerializer
+            key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        bindings:
+          consumer-sample:
+            consumer:
+              start-offset: latest
+      bindings:
+        consumer-sample:
+          group: sample-consumer-group
+          destination: my-sample-topic1
+          consumer:
+            concurrency: 1
+        producer-sample:
+          destination: my-sample-topic1
+          content-type: application/json
