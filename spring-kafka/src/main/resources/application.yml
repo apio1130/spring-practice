@@ -11,7 +11,9 @@ spring:
           sampleConsumer-in-0: consumer-sample
       kafka:
         binder:
-          brokers: localhost:10011,localhost:10012,localhost:10013
+#          brokers: localhost:10011,localhost:10012,localhost:10013
+          brokers: localhost:10001,localhost:10002,localhost:10003
+#          brokers: localhost:10001,localhost:10002,localhost:10004
           auto-create-topics: false
           required-acks: 0
           configuration:
@@ -30,3 +32,11 @@ spring:
         producer-sample:
           destination: my-sample-topic1
           content-type: application/json
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
