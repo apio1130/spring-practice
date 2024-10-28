@@ -1,0 +1,21 @@
+spring.application.name: resilience4j-demo
+
+resilience4j:
+  retry:
+    instances:
+      sampleRetry:
+        base-config: default
+    configs:
+      default:
+        max-attempts: 3
+        wait-duration: 2s
+        retry-exceptions:
+          - com.demo.sample.retry.RetryException
+        ignore-exceptions:
+          - com.demo.sample.retry.IgnoreException
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
