@@ -17,7 +17,7 @@ public class SampleService {
 	}
 
 	private String fallback(Exception e) {
-		log.error(e.getMessage(), e);
+		// log.error(e.getMessage(), e);
 		return "fallback";
 	}
 }
